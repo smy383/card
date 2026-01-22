@@ -24,6 +24,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
 
         body {
@@ -294,7 +296,7 @@
             aspect-ratio: 9 / 5;
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 28px;
+            padding: 28px 32px;
             position: relative;
             overflow: hidden;
             box-shadow:
@@ -307,8 +309,8 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             background: var(--accent);
             border-radius: 0 0 0 100%;
             opacity: 0.15;
@@ -319,8 +321,8 @@
             position: absolute;
             bottom: -30px;
             left: -30px;
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border: 2px solid rgba(255, 255, 255, 0.03);
             border-radius: 50%;
         }
@@ -334,17 +336,43 @@
             z-index: 1;
         }
 
+        .physical-card .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .physical-card .person-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .physical-card .name {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+        }
+
+        .physical-card .title {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
         .physical-card .logo-section {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .physical-card .logo-mark {
             width: 32px;
             height: 32px;
             background: var(--accent);
-            border-radius: 9px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -354,7 +382,7 @@
         }
 
         .physical-card .company-name {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 500;
             color: var(--text-primary);
             letter-spacing: 2px;
@@ -363,14 +391,14 @@
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 5px;
         }
 
         .contact-item {
             font-size: 12px;
             color: var(--text-secondary);
             font-weight: 300;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -380,6 +408,16 @@
             width: 14px;
             height: 14px;
             opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        .contact-item.website {
+            color: var(--accent);
+            opacity: 0.85;
+        }
+
+        .contact-item.website .icon {
+            opacity: 0.7;
         }
 
         /* Back Side */
@@ -401,31 +439,31 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
         }
 
         .back-logo-mark {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             background: var(--bg-dark);
-            border-radius: 14px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            font-size: 24px;
+            font-size: 28px;
             color: var(--accent);
         }
 
         .back-company-name {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 500;
             color: var(--bg-dark);
             letter-spacing: 4px;
         }
 
         .back-tagline {
-            font-size: 10px;
+            font-size: 11px;
             color: rgba(10, 10, 10, 0.6);
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -477,8 +515,12 @@
         }
 
         @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
             body {
-                background: white;
+                background: white !important;
                 padding: 20px;
             }
             .toggle-container, .page-footer, .print-btn {
@@ -492,9 +534,24 @@
             }
             .physical-card {
                 box-shadow: none;
-                border: 1px solid #ddd;
                 page-break-inside: avoid;
                 margin-bottom: 20px;
+                background: var(--card-bg) !important;
+            }
+            .physical-card.back {
+                background: linear-gradient(135deg, var(--accent) 0%, #c4d93d 100%) !important;
+            }
+            .physical-card::before {
+                background: var(--accent) !important;
+            }
+            .physical-card.back::before {
+                background: var(--bg-dark) !important;
+            }
+            .logo-mark, .back-logo-mark {
+                background: var(--accent) !important;
+            }
+            .back-logo-mark {
+                background: var(--bg-dark) !important;
             }
             .card-label {
                 color: #666;
@@ -580,9 +637,15 @@
                     <div class="card-label">Front</div>
                     <div class="physical-card">
                         <div class="card-content">
-                            <div class="logo-section">
-                                <div class="logo-mark">m</div>
-                                <span class="company-name">mogee</span>
+                            <div class="header-section">
+                                <div class="person-info">
+                                    <div class="name">송명엽</div>
+                                    <div class="title">대표</div>
+                                </div>
+                                <div class="logo-section">
+                                    <div class="logo-mark">m</div>
+                                    <span class="company-name">mogee</span>
+                                </div>
                             </div>
                             <div class="contact-info">
                                 <div class="contact-item">
@@ -597,6 +660,14 @@
                                         <polyline points="22,6 12,13 2,6"/>
                                     </svg>
                                     smy383@naver.com
+                                </div>
+                                <div class="contact-item website">
+                                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <line x1="2" y1="12" x2="22" y2="12"/>
+                                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                    </svg>
+                                    smy383.github.io/mogee-site
                                 </div>
                             </div>
                         </div>
